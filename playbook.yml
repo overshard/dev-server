@@ -1,7 +1,3 @@
-#
-# Developemnt server Ansible playbook
-# apt update && apt install --yes ansible && ansible-pull --url https://github.com/overshard/dev-server/ && reboot
-#
 ---
 - hosts: localhost
   connection: local
