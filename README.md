@@ -18,3 +18,6 @@ variable `isaac` at the top of the `playbook.yml` file to your name.
 Once the playbook completes and the server restarts you can login with your
 user. You will then need to add any ssh keys to your .ssh folder and login to
 your Heroku account with `heroku login --interactive`.
+
+    scp .ssh/id_rsa .ssh/id_rsa.pub isaac@{{ server_ip }}:~/.ssh/
+    ssh -t isaac@{{ server_ip }} heroku login --interactive
