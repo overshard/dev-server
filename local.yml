@@ -1,2 +1,2 @@
 ---
-- include: playbook.yml
+- import_playbook: playbook.yml
