@@ -1,3 +1,7 @@
+#
+# Developemnt server Ansible playbook
+# apt update && apt install ansible && ansible-pull --url https://github.com/overshard/dev-server/ && reboot
+#
 ---
 - hosts: localhost
   connection: local
@@ -101,14 +105,14 @@
         name: "{{ username }}"
         owner: "{{ username }}"
 
-    - name: POSTGRESQL - Trust local access
+    - name: POSTGRESQL - Trust local access ipv4
       lineinfile:
         path: /etc/postgresql/12/main/pg_hba.conf
         state: present
         regexp: "^host    all             all             127.0.0.1/32            "
         line: "host    all             all             127.0.0.1/32            trust"
 
-    - name: POSTGRESQL - Trust local access
+    - name: POSTGRESQL - Trust local access ipv6
       lineinfile:
         path: /etc/postgresql/12/main/pg_hba.conf
         state: present
