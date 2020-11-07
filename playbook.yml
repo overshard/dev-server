@@ -117,12 +117,22 @@
 
     - name: NVM - Install nvm
       become_user: "{{ username }}"
-      shell: |
-        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.0/install.sh | bash
-      args:
-        creates: "/home/{{ username }}/.nvm/nvm.sh"
-        chdir: "/home/{{ username }}/"
-        executable: /bin/bash
+      git:
+        repo: 'https://github.com/nvm-sh/nvm.git'
+        dest: "/home/{{ username }}/.nvm"
+        version: v0.37.0
+        depth: 1
+
+    - name: NVM - Add bash config
+      become_user: "{{ username }}"
+      blockinfile:
+        path: /home/{{ username }}/.bashrc
+        marker_begin: NVM BEGIN
+        marker_end: NVM END
+        block: |
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
     - name: NVM - Install node
       become_user: "{{ username }}"
@@ -130,7 +140,6 @@
         . /home/{{ username }}/.nvm/nvm.sh && nvm install {{ item }}
       args:
         creates: "/home/{{ username }}/.nvm/versions/node/{{ item }}"
-        chdir: "/home/{{ username }}/"
         executable: /bin/bash
       loop:
         - v15.1.0
@@ -141,26 +150,28 @@
         . /home/{{ username }}/.nvm/nvm.sh && npm install -g yarn
       args:
         creates: "/home/{{ username }}/.nvm/versions/node/v15.1.0/bin/yarn"
-        chdir: "/home/{{ username }}/"
         executable: /bin/bash
 
     - name: PYENV - Install pyenv
       become_user: "{{ username }}"
-      shell: |
-        curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
-      args:
-        creates: "/home/{{ username }}/.pyenv"
-        chdir: "/home/{{ username }}/"
-        executable: /bin/bash
+      git:
+        repo: 'https://github.com/pyenv/pyenv.git'
+        dest: "/home/{{ username }}/.pyenv"
+        version: v1.2.21
+        depth: 1
 
     - name: PYENV - Add bash config
       become_user: "{{ username }}"
       blockinfile:
         path: /home/{{ username }}/.bashrc
+        marker_begin: PYENV BEGIN
+        marker_end: PYENV END
         block: |
-          export PATH="$HOME/.pyenv/bin:$PATH"
-          eval "$(pyenv init -)"
-          eval "$(pyenv virtualenv-init -)"
+          export PYENV_ROOT="$HOME/.pyenv"
+          export PATH="$PYENV_ROOT/bin:$PATH"
+          if command -v pyenv 1>/dev/null 2>&1; then
+            eval "$(pyenv init -)"
+          fi
 
     - name: PYENV - Install python versions
       become_user: "{{ username }}"
@@ -168,22 +179,20 @@
         /home/{{ username }}/.pyenv/bin/pyenv install {{ item }}
       args:
         creates: "/home/{{ username }}/.pyenv/versions/{{ item }}"
-        chdir: "/home/{{ username }}/"
         executable: /bin/bash
       loop:
         - 2.7.18
-        - 3.6.10
-        - 3.7.7
-        - 3.8.3
+        - 3.6.12
+        - 3.7.9
+        - 3.8.6
         - 3.9.0
 
-    - name: PYENV - Set global python to 3.9.0
+    - name: PYENV - Set global python
       become_user: "{{ username }}"
       shell: |
-        /home/{{ username }}/.pyenv/bin/pyenv global 3.9.0
+        /home/{{ username }}/.pyenv/bin/pyenv global 3.9.0 3.8.6 3.7.9 3.6.12 2.7.18
       args:
         creates: "/home/{{ username }}/.pyenv/version"
-        chdir: "/home/{{ username }}/"
         executable: /bin/bash
 
     - name: PYENV - Install pipenv for 3.9.0
@@ -192,7 +201,6 @@
         /home/isaac/.pyenv/versions/3.9.0/bin/pip install pipenv
       args:
         creates: "/home/{{ username }}/.pyenv/versions/3.9.0/lib/python3.9/site-packages/pipenv"
-        chdir: "/home/{{ username }}/"
         executable: /bin/bash
 
     - name: HEROKU - Install Heroku CLI
@@ -201,5 +209,4 @@
         curl https://cli-assets.heroku.com/install.sh | sh
       args:
         creates: "/usr/local/bin/heroku"
-        chdir: "/home/{{ username }}/"
         executable: /bin/bash
