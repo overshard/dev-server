@@ -21,3 +21,7 @@ your Heroku account with `heroku login --interactive`.
 
     scp .ssh/id_rsa .ssh/id_rsa.pub isaac@{{ server_ip }}:~/.ssh/
     ssh -t isaac@{{ server_ip }} heroku login --interactive
+
+## Todo
+
+- Request heroku login info and ssh keys interactively https://docs.ansible.com/ansible/latest/user_guide/playbooks_prompts.html
