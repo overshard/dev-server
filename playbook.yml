@@ -46,6 +46,7 @@
     - name: PACKAGES - Setup unattended upgrades
       blockinfile:
         path: /etc/apt/apt.conf.d/20auto-upgrades
+        create: yes
         block: |
           APT::Periodic::Update-Package-Lists "1";
           APT::Periodic::Unattended-Upgrade "1";
@@ -83,8 +84,8 @@
         name: "{{ username }}"
         state: present
         groups: sudo
-        append: true
-        create_home: true
+        append: yes
+        create_home: yes
         shell: /bin/bash
 
     - name: USERS - Allow new users to passwordless sudo
