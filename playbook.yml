@@ -198,9 +198,9 @@
     - name: PYENV - Install pipenv, flake8, black for 3.9.0
       become_user: "{{ username }}"
       shell: |
-        /home/isaac/.pyenv/versions/3.9.0/bin/pip install pipenv flake8 black
+        /home/{{ username }}/.pyenv/versions/3.9.0/bin/pip install pipenv flake8 black isort
       args:
-        creates: "/home/isaac/.pyenv/shims/pipenv"
+        creates: "/home/{{ username }}/.pyenv/shims/pipenv"
         executable: /bin/bash
 
     - name: HEROKU - Install Heroku CLI
