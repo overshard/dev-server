@@ -2,18 +2,18 @@
 
 I use this playbook to get my personal development server up and running.
 
-## oneliner
+## Getting Started
 
 To get this running on a fresh Ubuntu server:
 
     apt update && apt install --yes ansible && ansible-pull --url https://github.com/overshard/dev-server/ playbook.yml && reboot
 
-## variables
+## Variables
 
 If your name is not isaac and you want to use this you may want to change the
 variable `isaac` at the top of the `playbook.yml` file to your name.
 
-## post-install
+## Post Install Tasks
 
 Once the playbook completes and the server restarts you can login with your
 user. You will then need to add any ssh keys to your .ssh folder and login to
