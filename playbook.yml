@@ -195,12 +195,12 @@
         creates: "/home/{{ username }}/.pyenv/version"
         executable: /bin/bash
 
-    - name: PYENV - Install pipenv for 3.9.0
+    - name: PYENV - Install pipenv, flake8, black for 3.9.0
       become_user: "{{ username }}"
       shell: |
-        /home/isaac/.pyenv/versions/3.9.0/bin/pip install pipenv
+        /home/isaac/.pyenv/versions/3.9.0/bin/pip install pipenv flake8 black
       args:
-        creates: "/home/{{ username }}/.pyenv/versions/3.9.0/lib/python3.9/site-packages/pipenv"
+        creates: "/home/isaac/.pyenv/shims/pipenv"
         executable: /bin/bash
 
     - name: HEROKU - Install Heroku CLI
