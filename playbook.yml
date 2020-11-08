@@ -58,6 +58,13 @@
         regexp: '^\/?\/?	"\${distro_id}:\${distro_codename}-updates";'
         line: '	"${distro_id}:${distro_codename}-updates";'
 
+    - name: PACKAGES - Allow unattended upgrades to remove unused packages
+      lineinfile:
+        path: /etc/apt/apt.conf.d/50unattended-upgrades
+        state: present
+        regexp: '^\/?\/?Unattended-Upgrade::Remove-Unused-Dependencies '
+        line: 'Unattended-Upgrade::Remove-Unused-Dependencies "true";'
+
     - name: PACKAGES - Allow unattended upgrades to remove unused kernel packages
       lineinfile:
         path: /etc/apt/apt.conf.d/50unattended-upgrades
