@@ -61,6 +61,7 @@
           - libcairo2-dev
           - libpango1.0-dev
           - libgif-dev
+          - firefox
 
     - name: PACKAGES - Setup unattended upgrades
       blockinfile:
