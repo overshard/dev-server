@@ -57,6 +57,10 @@
           - python-openssl
           - libpq-dev
           - unattended-upgrades
+          - libpixman-1-dev
+          - libcairo2-dev
+          - libpango1.0-dev
+          - libgif-dev
 
     - name: PACKAGES - Setup unattended upgrades
       blockinfile:
