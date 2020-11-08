@@ -54,28 +54,28 @@
       lineinfile:
         path: /etc/apt/apt.conf.d/50unattended-upgrades
         state: present
-        regexp: '^/?/?	"${distro_id}:${distro_codename}-updates";'
+        regexp: '^\/?\/?	"${distro_id}:${distro_codename}-updates";'
         line: '	"${distro_id}:${distro_codename}-updates";'
 
     - name: PACKAGES - Allow unattended upgrades to remove unused kernel packages
       lineinfile:
         path: /etc/apt/apt.conf.d/50unattended-upgrades
         state: present
-        regexp: '^/?/?Unattended-Upgrade::Remove-Unused-Kernel-Packages'
+        regexp: '^\/?\/?Unattended-Upgrade::Remove-Unused-Kernel-Packages'
         line: 'Unattended-Upgrade::Remove-Unused-Kernel-Packages "true";'
 
     - name: PACKAGES - Allow unattended upgrades to reboot
       lineinfile:
         path: /etc/apt/apt.conf.d/50unattended-upgrades
         state: present
-        regexp: '^/?/?Unattended-Upgrade::Automatic-Reboot'
+        regexp: '^\/?\/?Unattended-Upgrade::Automatic-Reboot'
         line: 'Unattended-Upgrade::Automatic-Reboot "true";'
 
     - name: PACKAGES - Allow unattended upgrades to at specified time
       lineinfile:
         path: /etc/apt/apt.conf.d/50unattended-upgrades
         state: present
-        regexp: '^/?/?Unattended-Upgrade::Automatic-Reboot-Time'
+        regexp: '^\/?\/?Unattended-Upgrade::Automatic-Reboot-Time'
         line: 'Unattended-Upgrade::Automatic-Reboot-Time "05:00";'
 
     - name: USERS - Create a new regular user with sudo privileges
