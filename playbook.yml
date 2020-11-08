@@ -267,6 +267,13 @@
         creates: "/home/{{ username }}/.pyenv/versions/3.9.0/lib/python3.9/site-packages/pipenv"
         executable: /bin/bash
 
+    - name: SYSCTL - Adjust number of watched files
+      lineinfile:
+        path: /etc/sysctl.conf
+        state: present
+        regexp: "^#?fs.inotify.max_user_watches"
+        line: "fs.inotify.max_user_watches=524288"
+
     - name: HEROKU - Install Heroku CLI
       become_user: "{{ username }}"
       shell: |
