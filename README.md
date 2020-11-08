@@ -6,7 +6,7 @@ I use this playbook to get my personal development server up and running.
 
 To get this running on a fresh Ubuntu server:
 
-    apt update && apt install --yes ansible && ansible-pull --url https://github.com/overshard/dev-server/ && reboot
+    apt update && apt install --yes ansible && ansible-pull --url https://github.com/overshard/dev-server/ playbook.yml && reboot
 
 ## variables
 
