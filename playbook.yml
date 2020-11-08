@@ -201,6 +201,7 @@
         creates: "/home/{{ username }}/.nvm/versions/node/{{ item }}"
         executable: /bin/bash
       loop:
+        - v14.15.0
         - v15.1.0
 
     - name: NVM - Install yarn
