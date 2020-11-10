@@ -207,14 +207,13 @@
         executable: /bin/bash
       loop:
         - v14.15.0
-        - v15.1.0
 
     - name: NVM - Install yarn
       become_user: "{{ username }}"
       shell: |
         . /home/{{ username }}/.nvm/nvm.sh && npm install -g yarn
       args:
-        creates: "/home/{{ username }}/.nvm/versions/node/v15.1.0/bin/yarn"
+        creates: "/home/{{ username }}/.nvm/versions/node/v14.15.0/bin/yarn"
         executable: /bin/bash
 
     - name: PYENV - Install pyenv
